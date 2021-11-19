@@ -21,11 +21,33 @@ public class Game {
     public void initializeGame(){
         Scanner scanner = new Scanner(System.in);
         int numOfPlayers;
+        String response;
 
-        do {
+        for(int i = 0; ; i++) {
             System.out.print("How many people are playing? : ");
-            numOfPlayers = scanner.nextInt();
-        } while (numOfPlayers < 0);
+
+            response = scanner.nextLine();
+            numOfPlayers = response.trim() == "" ? 3 : Integer.parseInt(response);
+
+            if (numOfPlayers <= 1 || numOfPlayers > 6) {
+                System.out.println("Invalid input. Players must be greater than 1 but less than or equal to 6.\n");
+                continue;
+            } else break;
+        }
+
+        createPlayers(numOfPlayers);
+        shuffle();
+    }
+
+    public void shuffle(){
+        System.out.println("\nShuffling Cards...\n");
+        deck.shuffle();
+    }
+
+    public void createPlayers (int numOfPlayers) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.printf("No. of Players: %d%n%n", numOfPlayers);
 
         for(int i = 1; i <= numOfPlayers; i++){
             System.out.printf("Player %d Name: ", i);
@@ -33,10 +55,6 @@ public class Game {
 
             players.add(new Player(name, new DefaultStrategy()));
         }
-
-        // Shuffle Cards
-        System.out.println("\nShuffling Cards...\n");
-        deck.shuffle();
     }
 
     public void dealCards(){
@@ -48,11 +66,13 @@ public class Game {
             });
         }
         System.out.println();
+
+        printScores();
     }
 
     public void checkBlackJack(Player player){
         if(player.getHand().getTotal() == 21) {
-            System.out.printf("%n%s has Blackjack!%n", player.getName());
+            System.out.printf("%s has Blackjack!%n", player.getName());
             endGame();
         }
     }
@@ -63,15 +83,30 @@ public class Game {
                 case HIT:
                     Card card = deck.nextCard();
                     player.addCard(card);
-                    System.out.printf("%s HIT %s %s%n", player.getName(), card.getSuit(), card.getRank());
+                    System.out.printf("%s HIT %s %s", player.getName(), card.getSuit(), card.getRank());
                     break;
                 default:
                     stickCount++;
-                    System.out.printf("%s STICKS%n", player.getName());
+                    System.out.printf("%s STICKS", player.getName());
                     break;
             }
+            printScores(player);
             checkBust(player);
         }
+    }
+
+    private void printScores(){
+        System.out.println("PLAYERS SCORE");
+
+        players.forEach(p -> {
+            System.out.printf("%s: %d%n", p.getName(), p.getHand().getTotal());
+        });
+
+        System.out.println();
+    }
+
+    private void printScores(Player player){
+        System.out.printf(" [Score: %d]%n", player.getHand().getTotal());
     }
 
     public void checkBust(Player player){
@@ -110,6 +145,7 @@ public class Game {
             endGame();
         }
         else stickCount = 0;
+
         players = players.stream().filter(p-> p.isBust()== false).toList();
     }
 
