@@ -9,8 +9,8 @@ public class Player {
     public Player(String name, Strategy strategy){
         this.name = name;
         this.strategy = strategy;
-        isBust = false;
         hand = new Hand();
+        isBust = false;
     }
 
     public String getName() {

@@ -2,6 +2,7 @@ package com.company;
 
 import java.security.InvalidParameterException;
 
+// TODO: Remove class
 public class InvalidPlayerNumberException extends InvalidParameterException {
     public InvalidPlayerNumberException(){
         System.out.println("Invalid input. Players must be greater than 1 but less than or equal to 6.\n");

@@ -17,6 +17,10 @@ public class Hand {
         cards.add(card);
     }
 
+    public List<Card> getCards(){
+        return cards;
+    }
+
     public int getTotal() {
         return cards.stream().mapToInt(Card::getValue).sum();
     }
