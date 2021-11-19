@@ -25,10 +25,8 @@ public class Player {
         return isBust;
     }
 
-    // TODO: May be refactored
     public void setBust() {
-        if(hand.getTotal() > 21)
-        isBust = !isBust;
+        isBust = true;
     }
 
     public void addCard(Card card) {
