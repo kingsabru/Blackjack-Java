@@ -3,7 +3,7 @@ package com.company;
 import java.util.*;
 
 public class Deck {
-    Stack<Card> cards = new Stack<>();
+    private Stack<Card> cards = new Stack<>();
 
     public Deck() {
         for(Suit suit: Suit.values()){

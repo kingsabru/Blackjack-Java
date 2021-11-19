@@ -21,11 +21,12 @@ public class Main {
         // EXACTLY 21
         // ONE PLAYER LEFT AND OTHERS GONE "BUST"
 
-        Deck deck = new Deck();
-        deck.shuffle();
 
-        for(int i=0; i <4; i++){
-            System.out.println(deck.nextCard().toString());
-        }
+        /* GAME PLAY*/
+        // Initialize Game [Create Players, Shuffle Cards]
+        // Deal Cards
+        // isBlackJack
+        // Hit
+        // isBlackJack
     }
 }
