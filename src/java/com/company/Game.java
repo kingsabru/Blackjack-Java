@@ -130,6 +130,11 @@ public class Game {
     }
 
     public void round(){
+        if (players.size()==1){
+            System.out.printf("%s WON with score: %d%n", players.get(0).getName(), players.get(0).getHand().getTotal());
+            endGame();
+        }
+
         for(Player player: players) {
             hitOrStick(player);
             checkBlackJack(player);
@@ -138,6 +143,7 @@ public class Game {
 
         System.out.println();
 
+        // Conditions to check the winner
         if(stickCount == players.size()) {
             getWinner().forEach(p -> {
                 System.out.printf("%s WON with score: %d%n", p.getName(), p.getHand().getTotal());
